@@ -214,3 +214,10 @@ function wireEncodeTool(root, id, path) {
   $(`#${id}-encode`, root).onclick = () => run("encode");
   $(`#${id}-decode`, root).onclick = () => run("decode");
 }
+
+// 等全部工具脚本注册后再启动（避免 DOMContentLoaded 时机导致界面空白/点击无响应）
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", bootApp);
+} else {
+  bootApp();
+}

@@ -53,9 +53,13 @@ async function copyText(text) {
 
 async function api(path, options = {}) {
   const url = `${API_BASE}${path}`;
+  const { headers: extraHeaders, ...rest } = options;
   const res = await fetch(url, {
-    headers: { "Content-Type": "application/json", ...(options.headers || {}) },
-    ...options,
+    ...rest,
+    headers: {
+      "Content-Type": "application/json",
+      ...(extraHeaders || {}),
+    },
   });
   let body;
   try {
@@ -122,7 +126,14 @@ function setResult(id, text, errMsg) {
 
 function switchTool(name) {
   const meta = META[name];
-  if (!meta || !Tools[name]) return;
+  if (!meta) {
+    toast("未知工具: " + name);
+    return;
+  }
+  if (typeof Tools[name] !== "function") {
+    toast("工具未加载，请强制刷新页面 (Ctrl+F5)");
+    return;
+  }
 
   document.querySelectorAll(".nav-item").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.tool === name);
@@ -132,12 +143,24 @@ function switchTool(name) {
 
   const panel = $("#panel");
   panel.innerHTML = "";
-  Tools[name](panel);
-  history.replaceState(null, "", `#${name}`);
+  try {
+    Tools[name](panel);
+  } catch (e) {
+    panel.innerHTML = `<div class="card"><p class="error">工具加载失败: ${e.message}</p></div>`;
+  }
+  try {
+    history.replaceState(null, "", `#${name}`);
+  } catch (_) {
+    /* ignore */
+  }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  $("#nav").addEventListener("click", (e) => {
+function bootApp() {
+  const nav = $("#nav");
+  if (!nav || nav.dataset.bound === "1") return;
+  nav.dataset.bound = "1";
+
+  nav.addEventListener("click", (e) => {
     const btn = e.target.closest(".nav-item");
     if (!btn) return;
     switchTool(btn.dataset.tool);
@@ -145,4 +168,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const hash = (location.hash || "#json").slice(1);
   switchTool(META[hash] ? hash : "json");
-});
+}
