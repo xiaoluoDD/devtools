@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DevTools · 个人在线工具</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">DT</span>
+        <div>
+          <div class="brand-name">DevTools</div>
+          <div class="brand-sub">个人在线工具</div>
+        </div>
+      </div>
+      <nav class="nav" id="nav">
+        <div class="nav-group">代码调试</div>
+        <button type="button" class="nav-item active" data-tool="json">JSON 格式化</button>
+
+        <div class="nav-group">编解码</div>
+        <button type="button" class="nav-item" data-tool="base64">Base64</button>
+        <button type="button" class="nav-item" data-tool="url">URL 编解码</button>
+
+        <div class="nav-group">开发常用</div>
+        <button type="button" class="nav-item" data-tool="timestamp">时间戳转换</button>
+        <button type="button" class="nav-item" data-tool="uuid">UUID / 密码</button>
+        <button type="button" class="nav-item" data-tool="base">进制转换</button>
+
+        <div class="nav-group">加密哈希</div>
+        <button type="button" class="nav-item" data-tool="hash">MD5 / SHA</button>
+
+        <div class="nav-group">实用工具</div>
+        <button type="button" class="nav-item" data-tool="qrcode">二维码生成</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <h1 id="tool-title">JSON 格式化</h1>
+        <p id="tool-desc" class="muted">格式化、压缩与转义，纯前端即时处理</p>
+      </header>
+
+      <section id="panel" class="panel"></section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/json.js"></script>
+  <script src="js/base.js"></script>
+  <script src="js/timestamp.js"></script>
+  <script src="js/api-tools.js"></script>
+</body>
+</html>

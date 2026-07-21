@@ -1,0 +1,6 @@
+backend/tools-server
+backend/tools-server.exe
+backend/*.exe
+.DS_Store
+Thumbs.db
+*.log

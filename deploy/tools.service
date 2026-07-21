@@ -1,0 +1,27 @@
+[Unit]
+Description=DevTools personal API server (Go + Gin)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/devtools/backend
+ExecStart=/opt/devtools/backend/tools-server
+Restart=on-failure
+RestartSec=3
+Environment=ADDR=127.0.0.1:8080
+Environment=GIN_MODE=release
+# 限制资源，适合 2核2G
+LimitNOFILE=65535
+MemoryMax=256M
+
+# 安全加固
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/devtools
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
