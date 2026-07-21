@@ -23,6 +23,12 @@ backend/      Go API（监听 127.0.0.1:8080）
 deploy/       nginx / systemd / 部署脚本
 ```
 
+## 日常更新流程
+
+1. **本机**：改代码 → `git add` / `commit` / `push` 到 GitHub  
+2. **服务器**：`sudo devtools-update`  
+3. **浏览器**：Ctrl+F5 刷新 http://你的公网IP/
+
 ## 本地运行
 
 ### 1. 启动后端
@@ -131,11 +137,29 @@ sudo nginx -t && sudo systemctl reload nginx
 
 浏览器访问：`http://<公网IP>/`
 
-### 6. 后续更新
+### 6. 一键更新（推荐）
+
+本机改完代码并 `git push` 到 GitHub 后，服务器只需一条命令：
+
+```bash
+# 首次安装命令（只需一次）
+sudo bash /opt/devtools/deploy/install-update-cmd.sh
+
+# 以后每次更新
+sudo devtools-update
+```
+
+等价于：
 
 ```bash
 sudo bash /opt/devtools/deploy/deploy.sh
 ```
+
+脚本会自动：用国内镜像 `git pull` → 编译 Go → 重启 `tools` → 同步 nginx（如有变更）→ 健康检查。
+
+> 说明：服务器 pull 走 `gitclone.com` 镜像；你本机 push 仍用正常的 GitHub 地址即可。
+
+浏览器打开站点后建议 **Ctrl+F5** 强制刷新，避免旧 JS 缓存。
 
 ### 可选：HTTPS（Let's Encrypt）
 
