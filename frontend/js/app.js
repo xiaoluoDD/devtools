@@ -12,6 +12,7 @@ const Tools = {};
 
 const META = {
   json: { title: "JSON 格式化", desc: "格式化、压缩与转义，纯前端即时处理" },
+  jsonBuild: { title: "组 JSON 包", desc: "按键值动态组装 JSON，纯前端即时生成" },
   base64: { title: "Base64 编解码", desc: "通过后端 API 进行 Base64 编码与解码" },
   url: { title: "URL 编解码", desc: "URL QueryEscape / QueryUnescape" },
   timestamp: { title: "时间戳转换", desc: "本地互转，并可校准服务器时间" },

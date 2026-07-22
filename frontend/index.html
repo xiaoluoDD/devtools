@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DevTools · 个人在线工具</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
 </head>
 <body>
   <div class="layout">
@@ -19,6 +19,7 @@
       <nav class="nav" id="nav">
         <div class="nav-group">代码调试</div>
         <button type="button" class="nav-item active" data-tool="json">JSON 格式化</button>
+        <button type="button" class="nav-item" data-tool="jsonBuild">组 JSON 包</button>
 
         <div class="nav-group">编解码</div>
         <button type="button" class="nav-item" data-tool="base64">Base64</button>
@@ -49,10 +50,11 @@
 
   <div id="toast" class="toast" hidden></div>
 
-  <script src="js/app.js?v=2"></script>
-  <script src="js/json.js?v=2"></script>
-  <script src="js/base.js?v=2"></script>
-  <script src="js/timestamp.js?v=2"></script>
-  <script src="js/api-tools.js?v=2"></script>
+  <script src="js/app.js?v=3"></script>
+  <script src="js/json.js?v=3"></script>
+  <script src="js/json-builder.js?v=3"></script>
+  <script src="js/base.js?v=3"></script>
+  <script src="js/timestamp.js?v=3"></script>
+  <script src="js/api-tools.js?v=3"></script>
 </body>
 </html>

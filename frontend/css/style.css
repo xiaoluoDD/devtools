@@ -342,6 +342,47 @@ select:focus {
   font-weight: 500;
 }
 
+.jb-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.jb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.jb-table th,
+.jb-table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.jb-table th {
+  text-align: left;
+  color: var(--muted);
+  font-weight: 550;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.jb-table tr:last-child td {
+  border-bottom: none;
+}
+
+.jb-table input,
+.jb-table select {
+  width: 100%;
+  margin: 0;
+}
+
+.jb-table .jb-del {
+  padding: 6px 8px;
+  white-space: nowrap;
+}
+
 @media (max-width: 860px) {
   .layout {
     flex-direction: column;
