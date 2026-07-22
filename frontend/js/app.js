@@ -170,3 +170,6 @@ function bootApp() {
   const hash = (location.hash || "#json").slice(1);
   switchTool(META[hash] ? hash : "json");
 }
+
+// 延后到本轮同步脚本都执行完再启动（此时 Tools.* 已注册）
+setTimeout(bootApp, 0);
