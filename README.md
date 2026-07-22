@@ -26,9 +26,22 @@ deploy/       nginx / systemd / 部署脚本
 
 ## 日常更新流程
 
-1. **本机**：改代码 → `git add` / `commit` / `push` 到 GitHub  
+与其它项目相同：**本机 push 后服务器立刻一键更新，不必等镜像。**
+
+1. **本机**：`git add` / `commit` / `push` 到 GitHub  
 2. **服务器**：`sudo devtools-update`  
-3. **浏览器**：Ctrl+F5 刷新 http://你的公网IP/
+3. **浏览器**：Ctrl+F5  
+
+服务器通过 **SSH Deploy Key** 直连 `git@github.com:xiaoluoDD/devtools.git` 执行 `git pull --ff-only`（同 ProjectShow 的 `update-all.sh` 思路）。
+
+首次在服务器执行一次：
+
+```bash
+sudo bash /opt/devtools/deploy/install-update-cmd.sh
+# 按提示把公钥加到仓库 Deploy keys，再：
+ssh -T git@github.com
+sudo devtools-update
+```
 
 ## 本地运行
 
@@ -140,27 +153,13 @@ sudo nginx -t && sudo systemctl reload nginx
 
 ### 6. 一键更新（推荐）
 
-本机改完代码并 `git push` 到 GitHub 后，服务器只需一条命令：
-
 ```bash
-# 首次安装命令（只需一次）
-sudo bash /opt/devtools/deploy/install-update-cmd.sh
-
-# 以后每次更新
-sudo devtools-update
+sudo bash /opt/devtools/deploy/install-update-cmd.sh   # 仅首次
+sudo devtools-update                                    # 日常
 ```
 
-等价于：
-
-```bash
-sudo bash /opt/devtools/deploy/deploy.sh
-```
-
-脚本会自动：用国内镜像 `git pull` → 编译 Go → 重启 `tools` → 同步 nginx（如有变更）→ 健康检查。
-
-> 说明：服务器 pull 走 `gitclone.com` 镜像；你本机 push 仍用正常的 GitHub 地址即可。
-
-浏览器打开站点后建议 **Ctrl+F5** 强制刷新，避免旧 JS 缓存。
+流程：`git pull --ff-only`（SSH 直连 GitHub）→ 编译 → 重启 `tools` → 同步 nginx → 健康检查。  
+**不走 gitclone 镜像，push 后可马上更新。**
 
 ### 可选：HTTPS（Let's Encrypt）
 
